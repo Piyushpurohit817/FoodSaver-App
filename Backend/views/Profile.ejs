@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FoodSaver - User Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="stylesheets/profile.css">
+  </head>
+  <body
+    class="bg-gradient-to-b from-gray-50 to-gray-100 font-sans text-gray-800 min-h-screen flex items-center justify-center"
+  >
+    <div class="container max-w-6xl mx-auto p-6">
+      <!-- Profile Header -->
+      <div
+        class="bg-white rounded-2xl shadow-lg p-8 mb-8 flex flex-col md:flex-row items-center gap-6"
+      >
+        <div class="relative">
+          <img
+            src="https://www.shutterstock.com/image-vector/user-circle-isolated-icon-round-600nw-2459622791.jpg"
+            alt="Profile Picture"
+            class="w-24 h-24 rounded-full object-cover ring-4 ring-green-100"
+          />
+          <div
+            class="absolute -bottom-1 -right-1 bg-green-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center"
+          >
+            ✓
+          </div>
+        </div>
+        <div class="text-center md:text-left">
+          <h1 class="text-3xl font-extrabold text-gray-900">
+            <%= user.name %>
+          </h1>
+          <p class="text-gray-500 text-sm mt-1"><%= user.email %></p>
+          <a
+            href="#"
+            class="mt-4 inline-block gradient-btn text-white px-5 py-2.5 rounded-lg font-medium text-sm tracking-wide"
+          >
+            Edit Profile
+          </a>
+        </div>
+      </div>
+
+      <!-- Dashboard -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-2xl shadow-md text-center card-hover">
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">
+            Saved Food Items
+          </h3>
+          <p class="text-3xl font-bold text-green-600">1,500</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-md text-center card-hover">
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">Total Orders</h3>
+          <p class="text-3xl font-bold text-green-600">30</p>
+        </div>
+        <div class="bg-white p-6 rounded-2xl shadow-md text-center card-hover">
+          <h3 class="text-lg font-semibold text-gray-700 mb-2">
+            Active Deliveries
+          </h3>
+          <p class="text-3xl font-bold text-green-600">12</p>
+        </div>
+      </div>
+
+      <!-- Order History -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg">
+        <h2 class="text-2xl font-bold text-gray-900 mb-4">Recent Orders</h2>
+        <div class="divide-y divide-gray-100">
+          <div
+            class="flex justify-between items-center py-4 hover:bg-gray-50 transition"
+          >
+            <span class="text-gray-700 font-medium">Dal Makhni</span>
+            <span class="text-gray-500 text-sm">25/07/2025</span>
+          </div>
+          <!-- Add more dynamic orders here if needed -->
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="text-center mt-8">
+        <a
+          href="#"
+          class="gradient-btn text-white px-6 py-3 rounded-lg font-medium text-sm tracking-wide mr-4"
+        >
+          Order Now
+        </a>
+        <a
+          href="#"
+          class="gradient-btn text-white px-6 py-3 rounded-lg font-medium text-sm tracking-wide"
+        >
+          View Favorites
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+.gradient-btn {
+  background: linear-gradient(90deg, #10b981, #059669);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gradient-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/styles/login.css" />
+  </head>
+  <body class="min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
+      <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">Login</h2>
+      <% if (error && error.length > 0) { %>
+      <div
+        class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg flex justify-between items-center"
+      >
+        <p><%= error %></p>
+        <button
+          onclick="this.parentElement.style.display='none'"
+          class="text-red-700 hover:text-red-900"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <% } %>
+      <!-- Success Message Alert -->
+      <% if (success && success.length > 0) { %>
+      <div
+        class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg flex justify-between items-center"
+      >
+        <p><%= success %></p>
+        <button
+          onclick="this.parentElement.style.display='none'"
+          class="text-green-700 hover:text-green-900"
+        >
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <% } %>
+      <form action="/Login" method="post" class="space-y-6">
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700"
+            >Email or Username</label
+          >
+          <input
+            type="text"
+            id="email"
+            name="email"
+            required
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="Enter your email or username"
+          />
+        </div>
+        <div>
+          <label for="password" class="block text-sm font-medium text-gray-700"
+            >Password</label
+          >
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            placeholder="Enter your password"
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
+        >
+          Log In
+        </button>
+      </form>
+      <p class="mt-4 text-center text-sm text-gray-600">
+        Don't have an account?
+        <a href="/Register" class="text-blue-600 hover:underline">Sign up</a>
+      </p>
+    </div>
+  </body>
+</html>

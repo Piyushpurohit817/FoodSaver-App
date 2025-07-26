@@ -1,75 +1,107 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FoodSaver - Register</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
-    <link rel="stylesheet" href="/styles/register.css" />
-  </head>
-  <body class="font-sans">
-    <form class="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md" method="post" action="/Register">
-      <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">
-        Register to FoodSaver
-      </h1>
-      <div class="space-y-4">
-        <div>
-          <label for="name" class="block text-sm font-medium text-gray-700"
-            >Name or Organization</label
-          >
-          <input
-            type="text"
-            id="name"
-            name="name"
-            placeholder="Enter your name or organization"
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
-            required
-          />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodSaver - Become a FoodSaver</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https:/cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body class="bg-amber-50 text-gray-800 font-sans min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="bg-white/95 backdrop-blur-md shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <h1 class="text-3xl font-extrabold text-orange-500 tracking-tight">FoodSaver</h1>
+            <a href="/login" class="text-gray-600 hover:text-orange-500 transition duration-300 ease-in-out transform hover:-translate-y-1">Login</a>
         </div>
+    </header>
 
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-700"
-            >Email Address</label
-          >
-          <input
-            type="email"
-            id="email"
-            name="email"
-            placeholder="Enter your email"
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
-            required
-          />
+    <!-- Register Section -->
+    <section class="flex-1 flex items-center justify-center py-12 bg-gradient-to-br from-orange-400 via-red-400 to-yellow-400 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://source.unsplash.com/random/1920x1080?food')] opacity-10 bg-cover bg-center"></div>
+        <div class="relative z-10 max-w-md w-full mx-4 bg-white rounded-xl shadow-2xl p-8">
+            <h2 class="text-3xl font-bold text-center text-orange-500 mb-8">Become a FoodSaver</h2>
+            <!-- Error Message Alert -->
+            <% if (error && error.length > 0) { %>
+                <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 mb-6 rounded-lg flex justify-between items-center">
+                    <p><%= error %></p>
+                    <button onclick="this.parentElement.style.display='none'" class="text-red-700 hover:text-red-900">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            <% } %>
+            <!-- Success Message Alert -->
+            <% if (success && success.length > 0) { %>
+                <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-6 rounded-lg flex justify-between items-center">
+                    <p><%= success %></p>
+                    <button onclick="this.parentElement.style.display='none'" class="text-green-700 hover:text-green-900">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            <% } %>
+            <form action="/Register" method="post" class="space-y-6">
+                <div>
+                    <label for="user-type" class="block text-sm font-medium text-gray-700">Account Type</label>
+                    <select id="user-type" name="usertype" required class="w-full p-4 mt-1 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition duration-300">
+                        <option value="" disabled <%= !formData['user-type'] ? 'selected' : '' %>>Select Account Type</option>
+                        <option value="individual" <%= formData['user-type'] === 'individual' ? 'selected' : '' %>>Individual</option>
+                        <option value="business" <%= formData['user-type'] === 'business' ? 'selected' : '' %>>Hotel/Cafe/Restaurant</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="Your Name" value="<%= formData.name || '' %>" required class="w-full p-4 mt-1 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition duration-300">
+                </div>
+                <div id="business-name" class="<%= formData['user-type'] === 'business' ? '' : 'hidden' %>">
+                    <label for="business-name-input" class="block text-sm font-medium text-gray-700">Restaurant Name</label>
+                    <input type="text" id="business-name-input" name="businessname" placeholder="Your Restaurant Name" value="<%= formData['business-name'] || '' %>" class="w-full p-4 mt-1 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition duration-300">
+                </div>
+                <div id="business-address" class="<%= formData['user-type'] === 'business' ? '' : 'hidden' %>">
+                    <label for="business-address-input" class="block text-sm font-medium text-gray-700">Restaurant Address</label>
+                    <input type="text" id="business-address-input" name="businessaddress" placeholder="Your Restaurant Address" value="<%= formData['business-address'] || '' %>" class="w-full p-4 mt-1 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition duration-300">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="Your Email" value="<%= formData.email || '' %>" required class="w-full p-4 mt-1 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition duration-300">
+                </div>
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Your Password" required class="w-full p-4 mt-1 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition duration-300">
+                </div>
+                <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-700">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="confirmpass" placeholder="Confirm Password" required class="w-full p-4 mt-1 rounded-lg bg-gray-100 text-gray-800 border border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-500 transition duration-300">
+                </div>
+                <button type="submit" class="w-full bg-orange-500 text-white px-6 py-4 rounded-lg font-semibold text-lg hover:bg-orange-600 transition duration-500 transform hover:scale-105 shadow-lg">Register</button>
+            </form>
+            <p class="mt-6 text-center text-gray-600">Already have an account? <a href="/Login" class="text-orange-500 hover:underline">Login here</a></p>
         </div>
+    </section>
 
-        <div>
-          <label for="password" class="block text-sm font-medium text-gray-700"
-            >Password</label
-          >
-          <input
-            type="password"
-            id="password"
-            name="password"
-            placeholder="Enter your password"
-            class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500 outline-none"
-            required
-          />
+    <!-- Footer -->
+    <footer class="bg-gray-800 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-300">© <%= new Date().getFullYear() %> FoodSaver. All rights reserved.</p>
         </div>
+    </footer>
 
-        <button
-          type="submit"
-          class="w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors font-semibold"
-        >
-          Register
-        </button>
-      </div>
-      <div class="mt-6 text-center">
-        <p class="text-sm text-gray-600">or</p>
-      </div>
-      <p class="mt-4 text-center text-sm text-gray-600">
-        Already have an account?
-        <a href="/login" class="text-orange-500 hover:underline">Login</a>
-      </p>
-    </form>
-  </body>
+    <!-- Script to Toggle Business Fields -->
+    <script>
+        const userType = document.getElementById('user-type');
+        const businessName = document.getElementById('business-name');
+        const businessAddress = document.getElementById('business-address');
+
+        userType.addEventListener('change', () => {
+            if (userType.value === 'business') {
+                businessName.classList.remove('hidden');
+                businessAddress.classList.remove('hidden');
+            } else {
+                businessName.classList.add('hidden');
+                businessAddress.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
 </html>
